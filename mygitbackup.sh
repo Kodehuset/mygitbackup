@@ -52,6 +52,8 @@ fi
 
 echo "Found Git at $GIT"
 
+# TODO Need to fix this - CD does not work in bash scripts, need to find a workaround to change the current directory to 
+# the one where the backup repo is cloned.
 CD $GIT_BACKUP_REPO
 
 echo "Performing MySQL dump of $DATABASE_HOST/$DATABASE_NAME"
