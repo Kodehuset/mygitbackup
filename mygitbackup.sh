@@ -52,7 +52,8 @@ fi
 
 echo "Found Git at $GIT"
 
-cd "$(dirname "$GIT_BACKUP_REPO/.")"
+#cd "$(dirname "$GIT_BACKUP_REPO/.")"
+cd "$GIT_BACKUP_REPO"
 
 MYSQL_DUMP_OPTIONS="--skip-extended-insert --compact"
 echo "Performing MySQL dump of $DATABASE_HOST/$DATABASE_NAME"
