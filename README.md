@@ -58,5 +58,13 @@ It may be preferable to set up a cron-job to prevent having to run the backup ma
     0 0 * * * /home/backupuser/mygitbackup/mygitbackup.sh
 
 
+License & Copyright
+-------------------
+
+MyGitBackup is released under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+Copyright &copy; 2013 Kodehuset AS
+
+
 
   
