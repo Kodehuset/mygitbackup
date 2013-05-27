@@ -75,7 +75,7 @@ if [ ! $? = 0 ]
 fi
 
 echo "Database dump completed. Committing..."
-$GIT add backup.sql
+$GIT add $BACKUP_FILENAME
 $GIT commit -m "New database backup."
 $GIT push
 
