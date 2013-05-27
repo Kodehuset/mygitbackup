@@ -57,6 +57,11 @@ It may be preferable to set up a cron-job to prevent having to run the backup ma
 
     0 0 * * * /home/backupuser/mygitbackup/mygitbackup.sh
 
+Disclaimer
+----------
+
+MyGitBackup is provided as-is. Kodehuset AS or any of the contributors to the project take no responsibility for any damage or data corruption caused by the use of MyGitBackup. You take full responsibility for ensuring the integrity and validity of your data and systems.
+
 
 License & Copyright
 -------------------
