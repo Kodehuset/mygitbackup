@@ -14,9 +14,9 @@ source ~/.mygitbackup
 
 echo "Checking..."
 
-if [ ! $DATABASE_HOST ] || [ ! "$DATABASES_NAMES" ] || [ ! $DATABASE_USER ]
+if [ ! $DATABASE_HOST ] || [ ! "$DATABASE_NAMES" ] || [ ! $DATABASE_USER ]
 	then
-	echo "Please provide the required DATABASE_HOST, DATABASES_NAMES and DATABASE_USER variables."
+	echo "Please provide the required DATABASE_HOST, DATABASE_NAMES and DATABASE_USER variables."
 	exit 0
 fi
 
@@ -55,7 +55,7 @@ cd "$GIT_BACKUP_REPO"
 
 MYSQL_DUMP_OPTIONS="--skip-extended-insert --compact"
 
-for DATABASE in $DATABASES_NAMES
+for DATABASE in $DATABASE_NAMES
 do
 	echo "Performing MySQL dump of $DATABASE_HOST/$DATABASE"
 	if [ ! -z $DATABASE_PASSWORD ]

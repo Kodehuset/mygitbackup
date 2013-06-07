@@ -38,16 +38,12 @@ Place a file on your home directory named ".mygitbackup" containing the followin
     # Database configuration. Please provide the details below.
     # Password is optional, in case you use key authentication to log on your MySQL instance.
     DATABASE_HOST="localhost"
-    DATABASES_NAMES="database1 database2 database3"
+    DATABASE_NAMES="database1 database2 database3"
     DATABASE_USER="dbuser"
     #DATABASE_PASSWORD="optional"
 
     # Provide the path to where the backup repository is located. This needs to be checked out before running MyGitBackup for the first time.
     GIT_BACKUP_REPO="/path/to/backup-repo"
-
-    # You can specify a custom name for the file used to backup the database and track changes. Default is "backup.sql".
-    # Uncomment the line below to specify your own name.
-    #BACKUP_FILENAME="name_of_backup_file.sql"
 
 
 Cron-job example
