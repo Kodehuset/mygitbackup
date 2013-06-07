@@ -1,12 +1,10 @@
 #!/bin/bash
 SCRIPT_NAME="MyGitBackup"
-SCRIPT_VERSION="Alpha 1" 
+SCRIPT_VERSION="Alpha 1"
 echo "$SCRIPT_NAME v. $SCRIPT_VERSION"
 
-BACKUP_FILENAME="backup.sql"
-
 # Load user configuration
-if [ ! -f ~/.mygitbackup ] 
+if [ ! -f ~/.mygitbackup ]
 	then
 	echo "ERROR: Unable to locate configuration parameters. Please configure $SCRIPT_NAME via ~/.mygitbackup"
 	exit 0
@@ -14,11 +12,11 @@ fi
 
 source ~/.mygitbackup
 
-echo "Checking..." 
+echo "Checking..."
 
-if [ ! $DATABASE_HOST ] || [ ! $DATABASE_NAME ] || [ ! $DATABASE_USER ] 
+if [ ! $DATABASE_HOST ] || [ ! "$DATABASES_NAMES" ] || [ ! $DATABASE_USER ]
 	then
-	echo "Please provide the required DATABASE_HOST, DATABASE_NAME and DATABASE_USER variables."
+	echo "Please provide the required DATABASE_HOST, DATABASES_NAMES and DATABASE_USER variables."
 	exit 0
 fi
 
@@ -35,7 +33,7 @@ if [ ! -d $GIT_BACKUP_REPO ]
 fi
 
 MYSQL_DUMP=$(which mysqldump)
-if [ ! $MYSQL_DUMP ] || [ ! -f $MYSQL_DUMP ] 
+if [ ! $MYSQL_DUMP ] || [ ! -f $MYSQL_DUMP ]
 	then
 	echo "Unable to locate mysqldump. Are you sure you have installed MySQL on this box?"
 	exit 0
@@ -44,7 +42,7 @@ fi
 echo "Found MySQL Dump at $MYSQL_DUMP"
 
 GIT=$(which git)
-if [ ! $GIT ] || [ ! -f $GIT ] 
+if [ ! $GIT ] || [ ! -f $GIT ]
 	then
 	echo "Unable to locate Git. Are you sure you have installed Git on this box?"
 	exit 0
@@ -56,26 +54,30 @@ echo "Found Git at $GIT"
 cd "$GIT_BACKUP_REPO"
 
 MYSQL_DUMP_OPTIONS="--skip-extended-insert --compact"
-echo "Performing MySQL dump of $DATABASE_HOST/$DATABASE_NAME"
-if [ ! -z $DATABASE_PASSWORD ] 
-	then
 
-	$MYSQL_DUMP $MYSQL_DUMP_OPTIONS -u$DATABASE_USER -p$DATABASE_PASSWORD -h$DATABASE_HOST $DATABASE_NAME > $BACKUP_FILENAME
-	
-else 
+for DATABASE in $DATABASES_NAMES
+do
+	echo "Performing MySQL dump of $DATABASE_HOST/$DATABASE"
+	if [ ! -z $DATABASE_PASSWORD ]
+		then
 
-	$MYSQL_DUMP $MYSQL_DUMP_OPTIONS -u$DATABASE_USER -h$DATABASE_HOST $DATABASE_NAME > $BACKUP_FILENAME
+		$MYSQL_DUMP $MYSQL_DUMP_OPTIONS -u$DATABASE_USER -p$DATABASE_PASSWORD -h$DATABASE_HOST $DATABASE > $DATABASE.sql
 
-fi
+	else
 
-if [ ! $? = 0 ] 
+		$MYSQL_DUMP $MYSQL_DUMP_OPTIONS -u$DATABASE_USER -h$DATABASE_HOST $DATABASE > $DATABASE.sql
+
+	fi
+done
+
+if [ ! $? = 0 ]
 	then
 	echo "MySQL Dump terminated with an unexpected result. Please investigate the errors which should be printed above and try again."
 	exit 0
 fi
 
 echo "Database dump completed. Committing..."
-$GIT add $BACKUP_FILENAME
+$GIT add *.sql
 $GIT commit -m "New database backup."
 $GIT push
 

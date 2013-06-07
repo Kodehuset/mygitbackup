@@ -6,12 +6,12 @@ About
 
 MyGitBackup has been initially developed and released as Open Source by [Kodehuset AS](http://www.kodehuset.no)
 
-MyGitBackup is a bash script which performs backup of MySQL databases and stores the backup in a Git repository. This provides an easy to use incremental backup using Git's efficient version control implementation. 
+MyGitBackup is a bash script which performs backup of MySQL databases and stores the backup in a Git repository. This provides an easy to use incremental backup using Git's efficient version control implementation.
 
 Contributing
 ------------
 
-We appreciate any input on MyGitBackup, and any contribution through pull requests. 
+We appreciate any input on MyGitBackup, and any contribution through pull requests.
 
 
 Usage
@@ -29,23 +29,23 @@ Usage
 Configuration
 -------------
 
-Place a file on your home directory named ".mygitbackup" containing the following configuration: 
+Place a file on your home directory named ".mygitbackup" containing the following configuration:
 
     ######################################
     # Configuration file for MyGitBackup #
     ######################################
-        
-    # Database configuration. Please provide the details below. 
+
+    # Database configuration. Please provide the details below.
     # Password is optional, in case you use key authentication to log on your MySQL instance.
     DATABASE_HOST="localhost"
-    DATABASE_NAME="database name"
+    DATABASES_NAMES="database1 database2 database3"
     DATABASE_USER="dbuser"
     #DATABASE_PASSWORD="optional"
-    
+
     # Provide the path to where the backup repository is located. This needs to be checked out before running MyGitBackup for the first time.
     GIT_BACKUP_REPO="/path/to/backup-repo"
-    
-    # You can specify a custom name for the file used to backup the database and track changes. Default is "backup.sql". 
+
+    # You can specify a custom name for the file used to backup the database and track changes. Default is "backup.sql".
     # Uncomment the line below to specify your own name.
     #BACKUP_FILENAME="name_of_backup_file.sql"
 
@@ -53,7 +53,7 @@ Place a file on your home directory named ".mygitbackup" containing the followin
 Cron-job example
 ----------------
 
-It may be preferable to set up a cron-job to prevent having to run the backup manually every time. Below is an example of such a cron job that runs a daily backup at midnight: 
+It may be preferable to set up a cron-job to prevent having to run the backup manually every time. Below is an example of such a cron job that runs a daily backup at midnight:
 
     0 0 * * * /home/backupuser/mygitbackup/mygitbackup.sh
 
@@ -72,4 +72,4 @@ Copyright &copy; 2013 Kodehuset AS
 
 
 
-  
+
